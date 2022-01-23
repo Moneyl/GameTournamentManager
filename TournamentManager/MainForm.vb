@@ -52,7 +52,7 @@ Public Class MainForm
     End Sub
 
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
-
+        SaveChangesToDb()
     End Sub
 
     Private Sub UpdatePlayerList()
@@ -72,21 +72,36 @@ Public Class MainForm
         End Using
     End Function
 
-    ' Returns true if any entries in the Playername column of PlayerDB match gamerTag
-    Private Function DbDoesGamerTagExist(gamerTag As String) As Boolean
-        Dim command = dbConnection.CreateCommand()
-        command.CommandText = $"SELECT 1 FROM dbo.PlayerDB WHERE GamerTag = '{gamerTag}';"
-        Using reader As SqlDataReader = command.ExecuteReader()
-            Return reader.HasRows
-        End Using
-    End Function
+    ' Save changes to existing players and new players to the database
+    Private Sub SaveChangesToDb()
+        For Each player In Gamers
+            If DbDoesPlayerExist(player.PlayerName) Then
+                ' Update existing entry
+                Dim command = dbConnection.CreateCommand()
+                command.CommandText = $"UPDATE dbo.PlayerDB
+                                        SET Playername = '{player.PlayerName}', GamerTag = '{player.GamerTag}',
+                                        Wins = {player.Wins}, Losses = {player.Losses}
+                                        WHERE Playername = '{player.PlayerName}'"
+                command.ExecuteNonQuery()
+            Else
+                ' Add new entry
+                Dim command = dbConnection.CreateCommand()
+                command.CommandText = $"INSERT INTO dbo.PlayerDB VALUES ('{player.PlayerName}', '{player.GamerTag}', {player.Wins}, {player.Losses})"
+                command.ExecuteNonQuery()
+            End If
+        Next
+    End Sub
 
+    ' Open tournament dialog and handle its results
     Private Sub StartTournamentButton_Click(sender As Object, e As EventArgs) Handles StartTournamentButton.Click
+        ' Open tournament creation dialog
         Dim startTournamentDialog = New StartTournamentDialog(Gamers)
         If startTournamentDialog.ShowDialog() = DialogResult.OK Then
+            ' Open tournament dialog
             Dim tournamentDialog = New TournamentDialog(startTournamentDialog.SelectedPlayers)
             If tournamentDialog.ShowDialog() = DialogResult.OK Then
                 UpdatePlayerList()
+                SaveChangesToDb()
             End If
         End If
     End Sub
