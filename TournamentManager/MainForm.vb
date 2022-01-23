@@ -43,6 +43,7 @@ Public Class MainForm
             Else
                 Gamers.Add(newPlayerDialog.Player)
                 PlayerList.Controls.Add(New PlayerDataControl(newPlayerDialog.Player))
+                SaveChangesToDb()
             End If
         End If
     End Sub
