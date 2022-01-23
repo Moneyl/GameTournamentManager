@@ -4,5 +4,11 @@
     <Compile Update="MainForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="NewPlayerDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PlayerDataControl.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
 </Project>
