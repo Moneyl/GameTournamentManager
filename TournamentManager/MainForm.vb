@@ -23,11 +23,7 @@ Public Class MainForm
                 Dim losses = reader.GetInt32(3)
                 Gamers.Add(New PlayerData(name, gamerTag, wins, losses))
             Loop
-
-            ' Create a GamerDataControl instance for each player
-            For Each gamer In Gamers
-                PlayerList.Controls.Add(New PlayerDataControl(gamer))
-            Next
+            UpdatePlayerList()
         End Using
     End Sub
 
@@ -59,6 +55,14 @@ Public Class MainForm
 
     End Sub
 
+    Private Sub UpdatePlayerList()
+        ' Create a GamerDataControl instance for each player
+        PlayerList.Controls.Clear()
+        For Each gamer In Gamers
+            PlayerList.Controls.Add(New PlayerDataControl(gamer))
+        Next
+    End Sub
+
     ' Returns true if any entries in the Playername column of PlayerDB match playerName
     Private Function DbDoesPlayerExist(playerName As String) As Boolean
         Dim command = dbConnection.CreateCommand()
@@ -76,4 +80,14 @@ Public Class MainForm
             Return reader.HasRows
         End Using
     End Function
+
+    Private Sub StartTournamentButton_Click(sender As Object, e As EventArgs) Handles StartTournamentButton.Click
+        Dim startTournamentDialog = New StartTournamentDialog(Gamers)
+        If startTournamentDialog.ShowDialog() = DialogResult.OK Then
+            Dim tournamentDialog = New TournamentDialog(startTournamentDialog.SelectedPlayers)
+            If tournamentDialog.ShowDialog() = DialogResult.OK Then
+                UpdatePlayerList()
+            End If
+        End If
+    End Sub
 End Class

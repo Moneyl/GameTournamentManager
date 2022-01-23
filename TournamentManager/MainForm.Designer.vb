@@ -26,6 +26,7 @@ Partial Class MainForm
         Me.RefreshPlayersButton = New System.Windows.Forms.Button()
         Me.PlayerList = New System.Windows.Forms.FlowLayoutPanel()
         Me.SaveButton = New System.Windows.Forms.Button()
+        Me.StartTournamentButton = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'AddPlayerButton
@@ -66,12 +67,22 @@ Partial Class MainForm
         Me.SaveButton.Text = "Save"
         Me.SaveButton.UseVisualStyleBackColor = True
         '
+        'StartTournamentButton
+        '
+        Me.StartTournamentButton.Location = New System.Drawing.Point(313, 13)
+        Me.StartTournamentButton.Name = "StartTournamentButton"
+        Me.StartTournamentButton.Size = New System.Drawing.Size(94, 29)
+        Me.StartTournamentButton.TabIndex = 6
+        Me.StartTournamentButton.Text = "Start tournament"
+        Me.StartTournamentButton.UseVisualStyleBackColor = True
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.StartTournamentButton)
         Me.Controls.Add(Me.SaveButton)
         Me.Controls.Add(Me.PlayerList)
         Me.Controls.Add(Me.RefreshPlayersButton)
@@ -85,4 +96,5 @@ Partial Class MainForm
     Friend WithEvents RefreshPlayersButton As Button
     Friend WithEvents PlayerList As FlowLayoutPanel
     Friend WithEvents SaveButton As Button
+    Friend WithEvents StartTournamentButton As Button
 End Class
