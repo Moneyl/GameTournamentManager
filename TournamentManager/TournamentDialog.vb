@@ -92,7 +92,7 @@ Public Class TournamentDialog
         End If
 
         winner.Wins += 1
-        loser.Losses = 1
+        loser.Losses += 1
         CurrentPlayers.Remove(loser)
 
         If _matchIndex < _matches.Count - 1 Then
