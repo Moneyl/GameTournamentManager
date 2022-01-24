@@ -73,7 +73,7 @@ Public Class MainForm
     End Sub
 
     ' Reset Players list and read list of players from the DB
-    Private Sub ReadPlayersFromDb()
+    Public Sub ReadPlayersFromDb()
         ' Query player list from DB
         Dim command = dbConnection.CreateCommand()
         command.CommandText = "SELECT * FROM dbo.PlayerDB;"

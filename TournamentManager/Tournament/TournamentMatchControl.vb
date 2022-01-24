@@ -1,4 +1,5 @@
 ﻿
+' Displays the players competing in a match and a combo for selecting the winner
 Public Class TournamentMatchControl
     Public Match As Match
 

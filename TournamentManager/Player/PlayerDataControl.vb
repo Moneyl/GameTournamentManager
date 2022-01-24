@@ -1,5 +1,5 @@
 ﻿
-' Control for editing a PlayerData instance
+' Displays the name, gamertag, wins, and losses of a player
 Public Class PlayerDataControl
     Public Player As PlayerData
 

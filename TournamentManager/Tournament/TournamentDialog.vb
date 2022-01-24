@@ -1,5 +1,6 @@
 ﻿Imports System.Windows.Forms
 
+' Shows tournament stage by stage and lets user pick the winner of each match
 Public Class TournamentDialog
     Private CurrentPlayers As List(Of PlayerData) = New List(Of PlayerData)
     Private _stage As Integer = 0
@@ -106,5 +107,17 @@ Public Class TournamentDialog
 
         ' Generate matches for next stage of tournament
         NextStage()
+    End Sub
+
+    Private Sub Cancel_Button_Click(sender As Object, e As EventArgs) Handles Cancel_Button.Click
+        ' Confirm that the user wants to cancel the tournament
+        Dim result = MsgBox("Are you sure you want to cancel the tournament? All changes to player stats made during the tournament will be reset.",
+                            MsgBoxStyle.YesNo)
+        If result = MsgBoxResult.Yes Then
+            ' Close tournament dialog and reload players from DB to discard win/loss changes
+            MainForm.ReadPlayersFromDb()
+            Me.DialogResult = DialogResult.Cancel
+            Me.Close()
+        End If
     End Sub
 End Class
