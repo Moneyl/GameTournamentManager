@@ -4,22 +4,22 @@
     <Compile Update="MainForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="NewPlayerDialog.vb">
+    <Compile Update="Player\NewPlayerDialog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="PlayerEditDialog.vb">
+    <Compile Update="Player\PlayerEditDialog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="StartTournamentDialog.vb">
+    <Compile Update="Tournament\StartTournamentDialog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="PlayerDataControl.vb">
+    <Compile Update="Player\PlayerDataControl.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="TournamentDialog.vb">
+    <Compile Update="Tournament\TournamentDialog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="TournamentMatchControl.vb">
+    <Compile Update="Tournament\TournamentMatchControl.vb">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
