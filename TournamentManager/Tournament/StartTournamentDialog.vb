@@ -1,5 +1,6 @@
 ﻿Imports System.Windows.Forms
 
+' Used to choose players who will be competing in a tournament. They're stored in SelectedPlayers if it's closed with 'Start'
 Public Class StartTournamentDialog
     Private AllPlayers As List(Of PlayerData) = New List(Of PlayerData)
     Public SelectedPlayers As List(Of PlayerData) = New List(Of PlayerData)
@@ -9,6 +10,7 @@ Public Class StartTournamentDialog
         AllPlayers = players
     End Sub
 
+    ' Closed with Start button. Check that there's an even number of players and store them in SelectedPlayers
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
         Dim evenPlayerCount As Boolean = PlayerList.CheckedItems.Count Mod 2 = 0
         If Not evenPlayerCount Then
@@ -28,7 +30,6 @@ Public Class StartTournamentDialog
             Me.DialogResult = System.Windows.Forms.DialogResult.OK
             Me.Close()
         End If
-
     End Sub
 
     Private Sub Cancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Cancel_Button.Click
@@ -37,6 +38,7 @@ Public Class StartTournamentDialog
     End Sub
 
     Private Sub NewTournamentDialog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' Fill CheckedListBox with players
         Dim playerNames = New List(Of String)
         For Each player In AllPlayers
             playerNames.Add(player.PlayerName)

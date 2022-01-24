@@ -1,9 +1,12 @@
 ﻿Imports System.Windows.Forms
 
+' UI for editing an existing player entry. Enforces uniqueness of PlayerName and GamerTag
 Public Class PlayerEditDialog
     ' Temporary object that UI edits. Changes are only applied to Player if valid
     Private _data As PlayerData
+    ' All players being tracked by the manager
     Public AllPlayers As List(Of PlayerData)
+    ' Current state of the player being edited
     Public Player As PlayerData
 
     Public Sub New(players As List(Of PlayerData), playerInit As PlayerData)
@@ -13,6 +16,7 @@ Public Class PlayerEditDialog
         _data = New PlayerData(New String(Player.PlayerName), New String(Player.GamerTag), Player.Wins, Player.Losses)
     End Sub
 
+    ' Apply edits if name and gamer tag are unique
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
         ' Ensure name and gamer tag are unique
         Dim nameAlreadyUsed = AllPlayers.Any(Function(p) p IsNot Player And p.PlayerName = _data.PlayerName)

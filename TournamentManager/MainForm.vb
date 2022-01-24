@@ -54,7 +54,7 @@ Public Class MainForm
     ' Save changes to existing players and new players to the database
     Public Sub SaveChangesToDb()
         For Each player In Players
-            If DbDoesPlayerExist(player.PlayerName) Then
+            If DbDoesPlayerExist(player.PlayerName) Then ' Is the player already in the DB?
                 ' Update existing entry
                 Dim command = dbConnection.CreateCommand()
                 command.CommandText = $"UPDATE dbo.PlayerDB

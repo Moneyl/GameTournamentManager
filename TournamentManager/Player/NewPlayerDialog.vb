@@ -3,6 +3,7 @@
 Public Class NewPlayerDialog
     Public Player As PlayerData = New PlayerData("", "", 0, 0)
 
+    ' Create new player if name & gamerTag are unique
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
         ' Ensure name and gamer tag are unique
         Dim nameAlreadyUsed = MainForm.Players.Any(Function(p) p.PlayerName = Player.PlayerName)

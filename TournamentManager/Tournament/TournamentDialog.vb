@@ -2,9 +2,13 @@
 
 ' Shows tournament stage by stage and lets user pick the winner of each match
 Public Class TournamentDialog
+    ' Players still in the tournament. They're removed from this upon losing a match.
     Private CurrentPlayers As List(Of PlayerData) = New List(Of PlayerData)
+    ' Current stage index
     Private _stage As Integer = 0
+    ' The matches taking place during this stage of the tournament
     Private _matches As List(Of Match) = New List(Of Match)
+    ' Winner of the tournament. Set prior to closing the dialog
     Public TournamentWinner As PlayerData
 
     Public Sub New(players As List(Of PlayerData))
@@ -18,7 +22,7 @@ Public Class TournamentDialog
         Me.Close()
     End Sub
 
-    ' Randomly generate matches for this stage.
+    ' Randomly choose matches for this stage.
     Private Sub GenerateMatches()
         Dim options = New List(Of PlayerData)
         options.AddRange(CurrentPlayers)
@@ -85,7 +89,7 @@ Public Class TournamentDialog
             End If
         Next
 
-        ' Update win/loss button
+        ' Update win/loss values + remove losers from CurrentPlayers
         For Each match In _matches
             Dim matchControl As TournamentMatchControl = MatchList.Controls(_matches.IndexOf(match))
             Dim winnerComboBox = matchControl.WinnerComboBox
