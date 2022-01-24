@@ -2,9 +2,7 @@
 
 Public Class MainForm
     Private dbConnection As SqlConnection
-    Private adapter As SqlDataAdapter
-    Private dataTable As DataTable
-    Public Gamers As List(Of PlayerData) = New List(Of PlayerData)
+    Public Players As List(Of PlayerData) = New List(Of PlayerData)
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Connect to database
@@ -21,7 +19,7 @@ Public Class MainForm
                 Dim gamerTag = reader.GetString(1)
                 Dim wins = reader.GetInt32(2)
                 Dim losses = reader.GetInt32(3)
-                Gamers.Add(New PlayerData(name, gamerTag, wins, losses))
+                Players.Add(New PlayerData(name, gamerTag, wins, losses))
             Loop
             UpdatePlayerList()
         End Using
@@ -36,12 +34,12 @@ Public Class MainForm
         If result = DialogResult.OK Then
             ' Check for duplicate player name or gamer tag
             Dim newPlayer = newPlayerDialog.Player
-            If Gamers.Any(Function(player) player.PlayerName = newPlayer.PlayerName) Then
+            If Players.Any(Function(player) player.PlayerName = newPlayer.PlayerName) Then
                 MsgBox($"Failed to add new player. The name '{newPlayer.PlayerName}' is already taken!")
-            ElseIf Gamers.Any(Function(player) player.GamerTag = newPlayer.GamerTag) Then
+            ElseIf Players.Any(Function(player) player.GamerTag = newPlayer.GamerTag) Then
                 MsgBox($"Failed to add new player. The gamer tag '{newPlayer.GamerTag}' is already taken!")
             Else
-                Gamers.Add(newPlayerDialog.Player)
+                Players.Add(newPlayerDialog.Player)
                 PlayerList.Controls.Add(New PlayerDataControl(newPlayerDialog.Player))
                 SaveChangesToDb()
             End If
@@ -59,8 +57,8 @@ Public Class MainForm
     Private Sub UpdatePlayerList()
         ' Create a GamerDataControl instance for each player
         PlayerList.Controls.Clear()
-        For Each gamer In Gamers
-            PlayerList.Controls.Add(New PlayerDataControl(gamer))
+        For Each player In Players
+            PlayerList.Controls.Add(New PlayerDataControl(player))
         Next
     End Sub
 
@@ -74,8 +72,8 @@ Public Class MainForm
     End Function
 
     ' Save changes to existing players and new players to the database
-    Private Sub SaveChangesToDb()
-        For Each player In Gamers
+    Public Sub SaveChangesToDb()
+        For Each player In Players
             If DbDoesPlayerExist(player.PlayerName) Then
                 ' Update existing entry
                 Dim command = dbConnection.CreateCommand()
@@ -96,7 +94,7 @@ Public Class MainForm
     ' Open tournament dialog and handle its results
     Private Sub StartTournamentButton_Click(sender As Object, e As EventArgs) Handles StartTournamentButton.Click
         ' Open tournament creation dialog
-        Dim startTournamentDialog = New StartTournamentDialog(Gamers)
+        Dim startTournamentDialog = New StartTournamentDialog(Players)
         If startTournamentDialog.ShowDialog() = DialogResult.OK Then
             ' Open tournament dialog
             Dim tournamentDialog = New TournamentDialog(startTournamentDialog.SelectedPlayers)

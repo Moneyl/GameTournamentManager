@@ -24,14 +24,19 @@ Partial Class MainForm
     Private Sub InitializeComponent()
         Me.AddPlayerButton = New System.Windows.Forms.Button()
         Me.RefreshPlayersButton = New System.Windows.Forms.Button()
-        Me.PlayerList = New System.Windows.Forms.FlowLayoutPanel()
         Me.SaveButton = New System.Windows.Forms.Button()
         Me.StartTournamentButton = New System.Windows.Forms.Button()
+        Me.PlayerList = New System.Windows.Forms.FlowLayoutPanel()
+        Me.MainLayoutPanel = New System.Windows.Forms.TableLayoutPanel()
+        Me.ButtonPanel = New System.Windows.Forms.Panel()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.MainLayoutPanel.SuspendLayout()
+        Me.ButtonPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'AddPlayerButton
         '
-        Me.AddPlayerButton.Location = New System.Drawing.Point(12, 11)
+        Me.AddPlayerButton.Location = New System.Drawing.Point(3, 3)
         Me.AddPlayerButton.Name = "AddPlayerButton"
         Me.AddPlayerButton.Size = New System.Drawing.Size(94, 29)
         Me.AddPlayerButton.TabIndex = 1
@@ -40,27 +45,16 @@ Partial Class MainForm
         '
         'RefreshPlayersButton
         '
-        Me.RefreshPlayersButton.Location = New System.Drawing.Point(112, 11)
+        Me.RefreshPlayersButton.Location = New System.Drawing.Point(103, 3)
         Me.RefreshPlayersButton.Name = "RefreshPlayersButton"
         Me.RefreshPlayersButton.Size = New System.Drawing.Size(94, 29)
         Me.RefreshPlayersButton.TabIndex = 2
         Me.RefreshPlayersButton.Text = "Refresh"
         Me.RefreshPlayersButton.UseVisualStyleBackColor = True
         '
-        'PlayerList
-        '
-        Me.PlayerList.AutoScroll = True
-        Me.PlayerList.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PlayerList.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.PlayerList.Location = New System.Drawing.Point(0, 46)
-        Me.PlayerList.Name = "PlayerList"
-        Me.PlayerList.Size = New System.Drawing.Size(800, 404)
-        Me.PlayerList.TabIndex = 3
-        Me.PlayerList.WrapContents = False
-        '
         'SaveButton
         '
-        Me.SaveButton.Location = New System.Drawing.Point(212, 11)
+        Me.SaveButton.Location = New System.Drawing.Point(203, 3)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(94, 29)
         Me.SaveButton.TabIndex = 5
@@ -69,32 +63,70 @@ Partial Class MainForm
         '
         'StartTournamentButton
         '
-        Me.StartTournamentButton.Location = New System.Drawing.Point(313, 13)
+        Me.StartTournamentButton.Location = New System.Drawing.Point(303, 3)
         Me.StartTournamentButton.Name = "StartTournamentButton"
         Me.StartTournamentButton.Size = New System.Drawing.Size(94, 29)
         Me.StartTournamentButton.TabIndex = 6
         Me.StartTournamentButton.Text = "Start tournament"
         Me.StartTournamentButton.UseVisualStyleBackColor = True
         '
+        'PlayerList
+        '
+        Me.PlayerList.AutoScroll = True
+        Me.PlayerList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.PlayerList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PlayerList.Location = New System.Drawing.Point(3, 41)
+        Me.PlayerList.Name = "PlayerList"
+        Me.PlayerList.Size = New System.Drawing.Size(1374, 877)
+        Me.PlayerList.TabIndex = 3
+        '
+        'MainLayoutPanel
+        '
+        Me.MainLayoutPanel.ColumnCount = 1
+        Me.MainLayoutPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.MainLayoutPanel.Controls.Add(Me.ButtonPanel, 0, 0)
+        Me.MainLayoutPanel.Controls.Add(Me.PlayerList, 0, 1)
+        Me.MainLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MainLayoutPanel.Location = New System.Drawing.Point(0, 0)
+        Me.MainLayoutPanel.Name = "MainLayoutPanel"
+        Me.MainLayoutPanel.RowCount = 2
+        Me.MainLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38.0!))
+        Me.MainLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.MainLayoutPanel.Size = New System.Drawing.Size(1380, 921)
+        Me.MainLayoutPanel.TabIndex = 7
+        '
+        'ButtonPanel
+        '
+        Me.ButtonPanel.Controls.Add(Me.AddPlayerButton)
+        Me.ButtonPanel.Controls.Add(Me.StartTournamentButton)
+        Me.ButtonPanel.Controls.Add(Me.RefreshPlayersButton)
+        Me.ButtonPanel.Controls.Add(Me.SaveButton)
+        Me.ButtonPanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ButtonPanel.Location = New System.Drawing.Point(3, 3)
+        Me.ButtonPanel.Name = "ButtonPanel"
+        Me.ButtonPanel.Size = New System.Drawing.Size(1374, 32)
+        Me.ButtonPanel.TabIndex = 0
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.StartTournamentButton)
-        Me.Controls.Add(Me.SaveButton)
-        Me.Controls.Add(Me.PlayerList)
-        Me.Controls.Add(Me.RefreshPlayersButton)
-        Me.Controls.Add(Me.AddPlayerButton)
+        Me.ClientSize = New System.Drawing.Size(1380, 921)
+        Me.Controls.Add(Me.MainLayoutPanel)
         Me.Name = "MainForm"
         Me.Text = "Game Tournament Manager"
+        Me.MainLayoutPanel.ResumeLayout(False)
+        Me.ButtonPanel.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents AddPlayerButton As Button
     Friend WithEvents RefreshPlayersButton As Button
-    Friend WithEvents PlayerList As FlowLayoutPanel
     Friend WithEvents SaveButton As Button
     Friend WithEvents StartTournamentButton As Button
+    Friend WithEvents PlayerList As FlowLayoutPanel
+    Friend WithEvents MainLayoutPanel As TableLayoutPanel
+    Friend WithEvents ButtonPanel As Panel
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 End Class
