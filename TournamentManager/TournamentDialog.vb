@@ -4,13 +4,12 @@ Public Class TournamentDialog
     Private CurrentPlayers As List(Of PlayerData) = New List(Of PlayerData)
     Private _stage = 0
     Private _matches As List(Of Match) = New List(Of Match)
-    Private _matchIndex = 0
     Public TournamentWinner As PlayerData
 
     Public Sub New(players As List(Of PlayerData))
         InitializeComponent()
         CurrentPlayers = players
-        GenerateBracket()
+        GenerateMatches()
     End Sub
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -18,8 +17,8 @@ Public Class TournamentDialog
         Me.Close()
     End Sub
 
-    ' Generates the next bracket (list of matches). Only one bracket is shown at a time
-    Private Sub GenerateBracket()
+    ' Randomly generate matches for this stage.
+    Private Sub GenerateMatches()
         Dim options = New List(Of PlayerData)
         options.AddRange(CurrentPlayers)
         Dim numMatches = CurrentPlayers.Count / 2
@@ -49,22 +48,16 @@ Public Class TournamentDialog
         Next
 
         ' Update bracket label
-        BracketLabel.Text = $"Bracket {_stage}"
-        _matchIndex = -1
-        UpdateMatch()
+        StageLabel.Text = $"Stage {_stage} - Select winners"
+
+        ' Update match list
+        MatchList.Controls.Clear()
+        For Each match In _matches
+            MatchList.Controls.Add(New TournamentMatchControl(match))
+        Next
     End Sub
 
-    Private Sub UpdateMatch()
-        _matchIndex += 1
-        Dim match = _matches(_matchIndex)
-        MatchLabel.Text = $"{match.Player0.GamerTag} vs {match.Player1.GamerTag}"
-        WinnerComboBox.ResetText()
-        WinnerComboBox.Text = match.Player0.GamerTag
-        WinnerComboBox.Items.Clear()
-        WinnerComboBox.Items.Add(match.Player0.GamerTag)
-        WinnerComboBox.Items.Add(match.Player1.GamerTag)
-    End Sub
-
+    ' If there are more stages remaining, generate the next set of matches, otherwise show tournament completion popup.
     Private Sub NextStage()
         If CurrentPlayers.Count <= 1 Then
             ' Tournament complete!
@@ -74,33 +67,32 @@ Public Class TournamentDialog
             Me.Close()
         Else
             ' Next stage
-            GenerateBracket()
+            GenerateMatches()
         End If
     End Sub
 
-    Private Sub SetWinnerButton_Click(sender As Object, e As EventArgs) Handles SetWinnerButton.Click
-        Dim match = _matches(_matchIndex)
-        Dim winnerGamerTag As String = WinnerComboBox.Text
-        Dim winner As PlayerData = Nothing
-        Dim loser As PlayerData = Nothing
-        If winnerGamerTag = match.Player0.GamerTag Then
-            winner = match.Player0
-            loser = match.Player1
-        ElseIf winnerGamerTag = match.Player1.GamerTag Then
-            winner = match.Player1
-            loser = match.Player0
-        End If
+    ' Update win/loss numbers based on match results, remove losers from CurrentPleyrs, and generate next stage
+    Private Sub NextStageButton_Click(sender As Object, e As EventArgs) Handles NextStageButton.Click
+        For Each match In _matches
+            Dim matchControl As TournamentMatchControl = MatchList.Controls(_matches.IndexOf(match))
+            Dim winnerComboBox = matchControl.WinnerComboBox
+            Dim winnerGamerTag As String = winnerComboBox.Text
+            Dim winner As PlayerData = Nothing
+            Dim loser As PlayerData = Nothing
+            If winnerGamerTag = match.Player0.GamerTag Then
+                winner = match.Player0
+                loser = match.Player1
+            ElseIf winnerGamerTag = match.Player1.GamerTag Then
+                winner = match.Player1
+                loser = match.Player0
+            End If
 
-        winner.Wins += 1
-        loser.Losses += 1
-        CurrentPlayers.Remove(loser)
+            winner.Wins += 1
+            loser.Losses += 1
+            CurrentPlayers.Remove(loser)
+        Next
 
-        If _matchIndex < _matches.Count - 1 Then
-            ' Go to next match
-            UpdateMatch()
-        Else
-            ' Reached final match. Go to next stage of the tournament
-            NextStage()
-        End If
+        ' Generate matches for next stage of tournament
+        NextStage()
     End Sub
 End Class

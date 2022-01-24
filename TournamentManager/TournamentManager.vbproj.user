@@ -19,5 +19,8 @@
     <Compile Update="TournamentDialog.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="TournamentMatchControl.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

@@ -24,11 +24,9 @@ Partial Class TournamentDialog
     Private Sub InitializeComponent()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Cancel_Button = New System.Windows.Forms.Button()
-        Me.BracketLabel = New System.Windows.Forms.Label()
-        Me.MatchLabel = New System.Windows.Forms.Label()
-        Me.WinnerComboBox = New System.Windows.Forms.ComboBox()
-        Me.WinnerLabel = New System.Windows.Forms.Label()
-        Me.SetWinnerButton = New System.Windows.Forms.Button()
+        Me.StageLabel = New System.Windows.Forms.Label()
+        Me.NextStageButton = New System.Windows.Forms.Button()
+        Me.MatchList = New System.Windows.Forms.FlowLayoutPanel()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -59,49 +57,33 @@ Partial Class TournamentDialog
         '
         'BracketLabel
         '
-        Me.BracketLabel.AutoSize = True
-        Me.BracketLabel.Font = New System.Drawing.Font("Segoe UI", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.BracketLabel.Location = New System.Drawing.Point(12, 9)
-        Me.BracketLabel.Name = "BracketLabel"
-        Me.BracketLabel.Size = New System.Drawing.Size(141, 31)
-        Me.BracketLabel.TabIndex = 1
-        Me.BracketLabel.Text = "Bracket num"
+        Me.StageLabel.AutoSize = True
+        Me.StageLabel.Font = New System.Drawing.Font("Segoe UI", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.StageLabel.Location = New System.Drawing.Point(12, 9)
+        Me.StageLabel.Name = "BracketLabel"
+        Me.StageLabel.Size = New System.Drawing.Size(258, 31)
+        Me.StageLabel.TabIndex = 1
+        Me.StageLabel.Text = "Stage # - Select winners"
         '
-        'MatchLabel
+        'NextStageButton
         '
-        Me.MatchLabel.AutoSize = True
-        Me.MatchLabel.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.MatchLabel.Location = New System.Drawing.Point(13, 44)
-        Me.MatchLabel.Name = "MatchLabel"
-        Me.MatchLabel.Size = New System.Drawing.Size(253, 20)
-        Me.MatchLabel.TabIndex = 3
-        Me.MatchLabel.Text = "Player0 vs Player1 - Select the winner"
+        Me.NextStageButton.Location = New System.Drawing.Point(276, 12)
+        Me.NextStageButton.Name = "NextStageButton"
+        Me.NextStageButton.Size = New System.Drawing.Size(94, 29)
+        Me.NextStageButton.TabIndex = 6
+        Me.NextStageButton.Text = "Next stage"
+        Me.NextStageButton.UseVisualStyleBackColor = True
         '
-        'WinnerComboBox
+        'MatchList
         '
-        Me.WinnerComboBox.FormattingEnabled = True
-        Me.WinnerComboBox.Location = New System.Drawing.Point(74, 72)
-        Me.WinnerComboBox.Name = "WinnerComboBox"
-        Me.WinnerComboBox.Size = New System.Drawing.Size(151, 28)
-        Me.WinnerComboBox.TabIndex = 4
-        '
-        'WinnerLabel
-        '
-        Me.WinnerLabel.AutoSize = True
-        Me.WinnerLabel.Location = New System.Drawing.Point(12, 75)
-        Me.WinnerLabel.Name = "WinnerLabel"
-        Me.WinnerLabel.Size = New System.Drawing.Size(56, 20)
-        Me.WinnerLabel.TabIndex = 5
-        Me.WinnerLabel.Text = "Winner"
-        '
-        'SetWinnerButton
-        '
-        Me.SetWinnerButton.Location = New System.Drawing.Point(231, 72)
-        Me.SetWinnerButton.Name = "SetWinnerButton"
-        Me.SetWinnerButton.Size = New System.Drawing.Size(94, 29)
-        Me.SetWinnerButton.TabIndex = 6
-        Me.SetWinnerButton.Text = "Next match"
-        Me.SetWinnerButton.UseVisualStyleBackColor = True
+        Me.MatchList.AutoScroll = True
+        Me.MatchList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.MatchList.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
+        Me.MatchList.Location = New System.Drawing.Point(12, 43)
+        Me.MatchList.Name = "MatchList"
+        Me.MatchList.Size = New System.Drawing.Size(552, 371)
+        Me.MatchList.TabIndex = 7
+        Me.MatchList.WrapContents = False
         '
         'TournamentDialog
         '
@@ -109,11 +91,9 @@ Partial Class TournamentDialog
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
         Me.ClientSize = New System.Drawing.Size(580, 485)
-        Me.Controls.Add(Me.SetWinnerButton)
-        Me.Controls.Add(Me.WinnerLabel)
-        Me.Controls.Add(Me.WinnerComboBox)
-        Me.Controls.Add(Me.MatchLabel)
-        Me.Controls.Add(Me.BracketLabel)
+        Me.Controls.Add(Me.MatchList)
+        Me.Controls.Add(Me.NextStageButton)
+        Me.Controls.Add(Me.StageLabel)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
@@ -130,9 +110,7 @@ Partial Class TournamentDialog
     End Sub
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents Cancel_Button As System.Windows.Forms.Button
-    Friend WithEvents BracketLabel As Label
-    Friend WithEvents MatchLabel As Label
-    Friend WithEvents WinnerComboBox As ComboBox
-    Friend WithEvents WinnerLabel As Label
-    Friend WithEvents SetWinnerButton As Button
+    Friend WithEvents StageLabel As Label
+    Friend WithEvents NextStageButton As Button
+    Friend WithEvents MatchList As FlowLayoutPanel
 End Class
