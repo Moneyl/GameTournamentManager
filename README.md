@@ -1,1 +1,2 @@
-TournamentManager
+# Game tournament manager
+Tool for managing game tournaments. Coded in VB.NET using dotnet core 5.0. Winforms is used for the GUI. Data is stored in a MSSQL databse on the device running the app. It expects the database to already exist.
