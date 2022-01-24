@@ -55,21 +55,21 @@ Partial Class TournamentDialog
         Me.Cancel_Button.TabIndex = 1
         Me.Cancel_Button.Text = "Cancel"
         '
-        'BracketLabel
+        'StageLabel
         '
         Me.StageLabel.AutoSize = True
         Me.StageLabel.Font = New System.Drawing.Font("Segoe UI", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.StageLabel.Location = New System.Drawing.Point(12, 9)
-        Me.StageLabel.Name = "BracketLabel"
+        Me.StageLabel.Name = "StageLabel"
         Me.StageLabel.Size = New System.Drawing.Size(258, 31)
         Me.StageLabel.TabIndex = 1
         Me.StageLabel.Text = "Stage # - Select winners"
         '
         'NextStageButton
         '
-        Me.NextStageButton.Location = New System.Drawing.Point(276, 12)
+        Me.NextStageButton.Location = New System.Drawing.Point(12, 427)
         Me.NextStageButton.Name = "NextStageButton"
-        Me.NextStageButton.Size = New System.Drawing.Size(94, 29)
+        Me.NextStageButton.Size = New System.Drawing.Size(91, 37)
         Me.NextStageButton.TabIndex = 6
         Me.NextStageButton.Text = "Next stage"
         Me.NextStageButton.UseVisualStyleBackColor = True

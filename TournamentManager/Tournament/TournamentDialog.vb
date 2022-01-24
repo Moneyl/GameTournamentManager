@@ -2,7 +2,7 @@
 
 Public Class TournamentDialog
     Private CurrentPlayers As List(Of PlayerData) = New List(Of PlayerData)
-    Private _stage = 0
+    Private _stage As Integer = 0
     Private _matches As List(Of Match) = New List(Of Match)
     Public TournamentWinner As PlayerData
 
@@ -47,14 +47,14 @@ Public Class TournamentDialog
             options.Remove(player1)
         Next
 
-        ' Update bracket label
-        StageLabel.Text = $"Stage {_stage} - Select winners"
-
         ' Update match list
         MatchList.Controls.Clear()
         For Each match In _matches
             MatchList.Controls.Add(New TournamentMatchControl(match))
         Next
+
+        ' Update bracket label
+        StageLabel.Text = $"Stage {_stage} - Select winners"
     End Sub
 
     ' If there are more stages remaining, generate the next set of matches, otherwise show tournament completion popup.
@@ -67,6 +67,7 @@ Public Class TournamentDialog
             Me.Close()
         Else
             ' Next stage
+            _stage += 1
             GenerateMatches()
         End If
     End Sub
