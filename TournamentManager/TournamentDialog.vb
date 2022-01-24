@@ -73,6 +73,17 @@ Public Class TournamentDialog
 
     ' Update win/loss numbers based on match results, remove losers from CurrentPleyrs, and generate next stage
     Private Sub NextStageButton_Click(sender As Object, e As EventArgs) Handles NextStageButton.Click
+        ' Ensure all matches have a winner selected
+        For i = 0 To _matches.Count - 1
+            Dim matchControl As TournamentMatchControl = MatchList.Controls(i)
+            Dim winnerComboBox = matchControl.WinnerComboBox
+            If winnerComboBox.Text = "" Then
+                MsgBox($"No winner selected for match '{matchControl.Match.Player0.GamerTag} vs {matchControl.Match.Player1.GamerTag}'. Can't continue to next stage.")
+                Return
+            End If
+        Next
+
+        ' Update win/loss button
         For Each match In _matches
             Dim matchControl As TournamentMatchControl = MatchList.Controls(_matches.IndexOf(match))
             Dim winnerComboBox = matchControl.WinnerComboBox
