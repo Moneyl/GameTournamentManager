@@ -23,12 +23,13 @@ Partial Class MainForm
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.AddPlayerButton = New System.Windows.Forms.Button()
-        Me.RefreshPlayersButton = New System.Windows.Forms.Button()
         Me.SaveButton = New System.Windows.Forms.Button()
         Me.StartTournamentButton = New System.Windows.Forms.Button()
         Me.PlayerList = New System.Windows.Forms.FlowLayoutPanel()
         Me.MainLayoutPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.ButtonPanel = New System.Windows.Forms.Panel()
+        Me.SyncTimeLabel = New System.Windows.Forms.Label()
+        Me.RefreshPlayersButton = New System.Windows.Forms.Button()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.MainLayoutPanel.SuspendLayout()
         Me.ButtonPanel.SuspendLayout()
@@ -43,15 +44,6 @@ Partial Class MainForm
         Me.AddPlayerButton.Text = "Add player"
         Me.AddPlayerButton.UseVisualStyleBackColor = True
         '
-        'RefreshPlayersButton
-        '
-        Me.RefreshPlayersButton.Location = New System.Drawing.Point(103, 3)
-        Me.RefreshPlayersButton.Name = "RefreshPlayersButton"
-        Me.RefreshPlayersButton.Size = New System.Drawing.Size(94, 29)
-        Me.RefreshPlayersButton.TabIndex = 2
-        Me.RefreshPlayersButton.Text = "Refresh"
-        Me.RefreshPlayersButton.UseVisualStyleBackColor = True
-        '
         'SaveButton
         '
         Me.SaveButton.Location = New System.Drawing.Point(203, 3)
@@ -65,7 +57,7 @@ Partial Class MainForm
         '
         Me.StartTournamentButton.Location = New System.Drawing.Point(303, 3)
         Me.StartTournamentButton.Name = "StartTournamentButton"
-        Me.StartTournamentButton.Size = New System.Drawing.Size(94, 29)
+        Me.StartTournamentButton.Size = New System.Drawing.Size(133, 29)
         Me.StartTournamentButton.TabIndex = 6
         Me.StartTournamentButton.Text = "Start tournament"
         Me.StartTournamentButton.UseVisualStyleBackColor = True
@@ -77,7 +69,7 @@ Partial Class MainForm
         Me.PlayerList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PlayerList.Location = New System.Drawing.Point(3, 41)
         Me.PlayerList.Name = "PlayerList"
-        Me.PlayerList.Size = New System.Drawing.Size(1374, 877)
+        Me.PlayerList.Size = New System.Drawing.Size(966, 617)
         Me.PlayerList.TabIndex = 3
         '
         'MainLayoutPanel
@@ -92,11 +84,12 @@ Partial Class MainForm
         Me.MainLayoutPanel.RowCount = 2
         Me.MainLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38.0!))
         Me.MainLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.MainLayoutPanel.Size = New System.Drawing.Size(1380, 921)
+        Me.MainLayoutPanel.Size = New System.Drawing.Size(972, 661)
         Me.MainLayoutPanel.TabIndex = 7
         '
         'ButtonPanel
         '
+        Me.ButtonPanel.Controls.Add(Me.SyncTimeLabel)
         Me.ButtonPanel.Controls.Add(Me.AddPlayerButton)
         Me.ButtonPanel.Controls.Add(Me.StartTournamentButton)
         Me.ButtonPanel.Controls.Add(Me.RefreshPlayersButton)
@@ -104,29 +97,50 @@ Partial Class MainForm
         Me.ButtonPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ButtonPanel.Location = New System.Drawing.Point(3, 3)
         Me.ButtonPanel.Name = "ButtonPanel"
-        Me.ButtonPanel.Size = New System.Drawing.Size(1374, 32)
+        Me.ButtonPanel.Size = New System.Drawing.Size(966, 32)
         Me.ButtonPanel.TabIndex = 0
+        '
+        'SyncTimeLabel
+        '
+        Me.SyncTimeLabel.AutoSize = True
+        Me.SyncTimeLabel.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point)
+        Me.SyncTimeLabel.Location = New System.Drawing.Point(442, 7)
+        Me.SyncTimeLabel.Name = "SyncTimeLabel"
+        Me.SyncTimeLabel.Size = New System.Drawing.Size(172, 20)
+        Me.SyncTimeLabel.TabIndex = 7
+        Me.SyncTimeLabel.Text = "(Last saved at T:T M/D/Y)"
+        '
+        'RefreshPlayersButton
+        '
+        Me.RefreshPlayersButton.Location = New System.Drawing.Point(103, 3)
+        Me.RefreshPlayersButton.Name = "RefreshPlayersButton"
+        Me.RefreshPlayersButton.Size = New System.Drawing.Size(94, 29)
+        Me.RefreshPlayersButton.TabIndex = 2
+        Me.RefreshPlayersButton.Text = "Refresh"
+        Me.RefreshPlayersButton.UseVisualStyleBackColor = True
         '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ClientSize = New System.Drawing.Size(1380, 921)
+        Me.ClientSize = New System.Drawing.Size(972, 661)
         Me.Controls.Add(Me.MainLayoutPanel)
         Me.Name = "MainForm"
         Me.Text = "Game Tournament Manager"
         Me.MainLayoutPanel.ResumeLayout(False)
         Me.ButtonPanel.ResumeLayout(False)
+        Me.ButtonPanel.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents AddPlayerButton As Button
-    Friend WithEvents RefreshPlayersButton As Button
     Friend WithEvents SaveButton As Button
     Friend WithEvents StartTournamentButton As Button
     Friend WithEvents PlayerList As FlowLayoutPanel
     Friend WithEvents MainLayoutPanel As TableLayoutPanel
     Friend WithEvents ButtonPanel As Panel
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents RefreshPlayersButton As Button
+    Friend WithEvents SyncTimeLabel As Label
 End Class

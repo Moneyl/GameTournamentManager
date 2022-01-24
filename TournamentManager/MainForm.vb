@@ -8,21 +8,7 @@ Public Class MainForm
         ' Connect to database
         dbConnection = New SqlConnection("Data Source=localhost\SQLEXPRESS;Initial Catalog=LukesDB;Integrated Security=yes;")
         dbConnection.Open()
-
-        ' Query player list from DB
-        Dim command = dbConnection.CreateCommand()
-        command.CommandText = "SELECT * FROM dbo.PlayerDB;"
-        Using reader As SqlDataReader = command.ExecuteReader() ' Closes reader on scope exit
-            ' Read player data into memory row by row
-            Do While reader.Read()
-                Dim name = reader.GetString(0)
-                Dim gamerTag = reader.GetString(1)
-                Dim wins = reader.GetInt32(2)
-                Dim losses = reader.GetInt32(3)
-                Players.Add(New PlayerData(name, gamerTag, wins, losses))
-            Loop
-            UpdatePlayerList()
-        End Using
+        ReadPlayersFromDb()
     End Sub
 
     Private Sub AddPlayerButton_Click(sender As Object, e As EventArgs) Handles AddPlayerButton.Click
@@ -34,20 +20,14 @@ Public Class MainForm
         If result = DialogResult.OK Then
             ' Check for duplicate player name or gamer tag
             Dim newPlayer = newPlayerDialog.Player
-            If Players.Any(Function(player) player.PlayerName = newPlayer.PlayerName) Then
-                MsgBox($"Failed to add new player. The name '{newPlayer.PlayerName}' is already taken!")
-            ElseIf Players.Any(Function(player) player.GamerTag = newPlayer.GamerTag) Then
-                MsgBox($"Failed to add new player. The gamer tag '{newPlayer.GamerTag}' is already taken!")
-            Else
-                Players.Add(newPlayerDialog.Player)
-                PlayerList.Controls.Add(New PlayerDataControl(newPlayerDialog.Player))
-                SaveChangesToDb()
-            End If
+            Players.Add(newPlayer)
+            PlayerList.Controls.Add(New PlayerDataControl(newPlayer))
+            SaveChangesToDb()
         End If
     End Sub
 
     Private Sub RefreshPlayersButton_Click(sender As Object, e As EventArgs) Handles RefreshPlayersButton.Click
-        Debug.WriteLine("Clicked Refresh button!")
+        ReadPlayersFromDb()
     End Sub
 
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
@@ -89,6 +69,27 @@ Public Class MainForm
                 command.ExecuteNonQuery()
             End If
         Next
+        UpdateDbSyncLabel()
+    End Sub
+
+    ' Reset Players list and read list of players from the DB
+    Private Sub ReadPlayersFromDb()
+        ' Query player list from DB
+        Dim command = dbConnection.CreateCommand()
+        command.CommandText = "SELECT * FROM dbo.PlayerDB;"
+        Using reader As SqlDataReader = command.ExecuteReader() ' Closes reader on scope exit
+            ' Read player data into memory row by row
+            Players.Clear()
+            Do While reader.Read()
+                Dim name = reader.GetString(0)
+                Dim gamerTag = reader.GetString(1)
+                Dim wins = reader.GetInt32(2)
+                Dim losses = reader.GetInt32(3)
+                Players.Add(New PlayerData(name, gamerTag, wins, losses))
+            Loop
+            UpdatePlayerList()
+        End Using
+        UpdateDbSyncLabel()
     End Sub
 
     ' Open tournament dialog and handle its results
@@ -103,5 +104,9 @@ Public Class MainForm
                 SaveChangesToDb()
             End If
         End If
+    End Sub
+
+    Private Sub UpdateDbSyncLabel()
+        SyncTimeLabel.Text = $"(Last synced at {System.DateTime.Now.ToLongTimeString()})"
     End Sub
 End Class
